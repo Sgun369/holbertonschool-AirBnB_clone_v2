@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 """a script that start a web application"""
 from flask import Flask, render_template
-from models import storage
 
 
 app = Flask(__name__)
@@ -13,6 +12,8 @@ def states_list():
 
     States are sorted by name.
     """
+    from models import storage
+
     states = storage.all("State")
     return render_template("7-states_list.html", states=states)
 
@@ -20,6 +21,8 @@ def states_list():
 @app.teardown_appcontext
 def teardown(exc):
     """Remove the current SQLAlchemy session."""
+    from models import storage
+
     storage.close()
 
 
